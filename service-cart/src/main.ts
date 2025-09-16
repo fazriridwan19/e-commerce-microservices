@@ -80,6 +80,9 @@ async function bootstrap() {
       consumer: {
         groupId: configService.getOrThrow<string>('KAFKA_CONSUMER_GROUP_ID'),
       },
+      subscribe: {
+        fromBeginning: true
+      },
       producer: {
         createPartitioner: Partitioners.LegacyPartitioner,
       },
