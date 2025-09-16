@@ -1,0 +1,81 @@
+CREATE TABLE hra_employee.`employee` (
+  `id` int NOT NULL,
+  `employee_number` varchar(12) NOT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `phone_number` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `salary` int DEFAULT NULL,
+  `basic_allowance` int DEFAULT NULL,
+  `level` int DEFAULT NULL,
+  `position` enum('functional', 'structural') DEFAULT NULL,
+  `superior_employee_number` varchar(12) DEFAULT NULL,
+  `job_title` varchar(30) DEFAULT NULL,
+  `job_location` varchar(30) DEFAULT NULL,
+  `marital_status` enum('single', 'married', 'widow/widower') DEFAULT NULL,
+  `education_level` varchar(5) DEFAULT NULL,
+  `status` enum('ACTIVE', 'INACTIVE') DEFAULT NULL,
+  `start_working_at` DATE DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `emp_email_IDX` (`email`) USING BTREE,
+  UNIQUE KEY `emp_number_IDX` (`employee_number`) USING BTREE,
+  UNIQUE KEY `emp_phone_number_IDX` (`phone_number`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE hra_employee.`family_member` (
+  `id` int NOT NULL,
+  `related_employee_number` varchar(12) NOT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `internal_employee` boolean DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `phone_number` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `marital_status` enum('single', 'married', 'widow/widower') DEFAULT NULL,
+  `is_emergency_contact` boolean DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fam_email_IDX` (`email`) USING BTREE,
+  UNIQUE KEY `fam_phone_number_IDX` (`phone_number`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE hra_employee.`address` (
+  `id` int NOT NULL,
+  `person_id` int DEFAULT NULL,
+  `type` varchar(15) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `province` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `subdistrict` varchar(100) DEFAULT NULL,
+  `detail` varchar(255) DEFAULT NULL,
+  `postal_code` varchar(10) DEFAULT NULL,
+  `primary_address` boolean DEFAULT NULL,
+  `status` enum('ACTIVE', 'INACTIVE') DEFAULT NULL,
+  `start_active_at` DATE DEFAULT NULL,
+  `end_active_at` DATE DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE hra_employee.`education` (
+  `id` int NOT NULL,
+  `person_id` int DEFAULT NULL,
+  `level` varchar(15) DEFAULT NULL,
+  `school_name` varchar(100) DEFAULT NULL,
+  `faculty` varchar(100) DEFAULT NULL,
+  `major` varchar(100) DEFAULT NULL,
+  `certificate_number` varchar(100) DEFAULT NULL,
+  `start_date` DATE DEFAULT NULL,
+  `end_date` DATE DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+  UNIQUE KEY `cert_number_IDX` (`certificate_number`) USING BTREE,
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
